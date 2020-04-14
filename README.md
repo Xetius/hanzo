@@ -11,5 +11,3 @@ Execute `make build` in the project root to build the container
 # Kubernetes
 This demo utilises Kubernetes for this demo.
 Tested using Docker for Desktop on Mac with Kubernetes 1.15.5 enabled
-
-
