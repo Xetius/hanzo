@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-deployment
+  labels:
+    app: hello
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello
+  template:
+    metadata:
+      labels:
+        apps: hello
+    spec:
+      containers:
+        - name: hello
+          image: xetius/hello:latest
+          ports:
+            - containerPort: 8081
+          env:
+            - name: POSTGRES_CONNECTION_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: application_config
+                  key: POSTGRES_CONNECTION_URL
+            - name: REDIS_CONNECTION_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: application_config
+                  key: REDIS_CONNECTION_URL

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: application_config
+data:
+  POSTGRES_CONNECTION_URL: postgres://postgres/staging
+  REDIS_CONNECTION_URL: redis://redis/staging
