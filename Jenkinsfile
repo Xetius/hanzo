@@ -6,16 +6,13 @@ pipeline {
         stage("build") {
             steps {
                 script {
-                    app = docker.build('xetius/hanzo')
-                }
-            }
-        }
-
-        stage('run unit tests') {
-            steps {
-                script {
+                    def app = docker.build("xetius/hanzo:${env.BUILD_NUMBER}")
                     app.inside {
                         sh 'run_unit_tests.sh'
+                    }
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                        app.push("${env.BUILD_NUMBER}")
+                        app.push('latest')
                     }
                 }
             }
@@ -24,10 +21,6 @@ pipeline {
         stage('push image') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                        app.push("${env.BUILD_NUMBER}")
-                        app.push('latest')
-                    }
                 }
             }
         }
