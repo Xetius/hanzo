@@ -4,13 +4,13 @@ pipeline {
 
     stages {
         stage("build") {
-            script {
+            steps {
                 app = docker.build('xetius/hanzo')
             }
         }
 
         stage('run unit tests') {
-            script {
+            steps {
                 app.inside {
                     sh 'run_unit_tests.sh'
                 }
@@ -18,7 +18,7 @@ pipeline {
         }
 
         stage('push image') {
-            script {
+            steps {
                 docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
                     app.push("${env.BUILD_NUMBER}")
                     app.push('latest')
