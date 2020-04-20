@@ -1,5 +1,6 @@
+def app
+
 pipeline {
-    def app
 
     stages {
         stage('SCM') {
