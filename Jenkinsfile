@@ -3,10 +3,6 @@ def app
 pipeline {
 
     stages {
-        stage('SCM') {
-            checkout scm
-        }
-
         stage("build") {
             app = docker.build('')
         }
